@@ -21,3 +21,19 @@
   .mat-form-field {
 	margin-right: 12px;
   }
+  .boton{
+	  margin: 7px;
+  }
+  .container{
+	  padding: 25px;
+  }
+
+  .separar div{
+	 margin: 0px 10px;
+	 display: inline;
+  }
+
+  .lista{
+	display: flex;
+    align-items: center;
+  }

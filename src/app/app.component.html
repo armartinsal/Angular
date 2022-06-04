@@ -1,46 +1,77 @@
-<form class="example-form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+<div class="container">
+  <form class="example-form" [formGroup]="formulario" (submit)="registrar()">
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Nombre*</mat-label>
-    <input matInput placeholder="Nombre" id="nombre" formControlName="nombre">
-  </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre" id="nombre" formControlName="nombre">
+    </mat-form-field>
 
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Apellidos</mat-label>
+      <input matInput placeholder="Apellidos" value="" formControlName="apellidos">
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Apellidos*</mat-label>
-    <input matInput placeholder="Apellidos" value="">
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="edad">
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Edad*</mat-label>
-    <input matInput type="number">
-  </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input matInput placeholder="DNI" value="" formControlName="DNI">
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>DNI*</mat-label>
-    <input matInput placeholder="DNI" value="">
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Cumpleaños</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="cumpleanos">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Cumpleaños*</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Color Favorito</mat-label>
+      <input matInput placeholder="Color Favorito" value="" formControlName="colorFavorito">
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Color Favorito*</mat-label>
-    <input matInput placeholder="Ex. Pizza" value="">
-  </mat-form-field>
+    <label id="example-radio-group-label">Sexo</label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="sexo">
+      <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+        {{season}}
+      </mat-radio-button>
+    </mat-radio-group>
 
-  <label id="example-radio-group-label">Sexo*</label>
-  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-    <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-      {{season}}
-    </mat-radio-button>
-  </mat-radio-group>
+    <button mat-raised-button color="primary" type="submit">Registrar</button>
+  </form>
 
-  <button mat-raised-button color="primary" type="submit">Registrar</button>
+  <div>
+    <br>
+    <br>
+    <h1>Registro de personas</h1>
+    <ul>
+      <li *ngFor="let persona of personaArray;let i = index" class="lista">
+        <div *ngIf="idEditar == i" class="separar">
+          <div>{{formulario.value.nombre}}</div>
+          <div>{{formulario.value.apellidos}}</div>
+          <div>{{formulario.value.edad}}</div>
+          <div>{{formulario.value.DNI}}</div>
+          <div>{{formulario.value.cumpleanos.toDateString()}}</div>
+          <div>{{formulario.value.colorFavorito}}</div>
+          <div>{{formulario.value.sexo}}</div>
+        </div>
+        <div *ngIf="idEditar != i" class="separar">
+          <div>{{persona.getNombre()}}</div>
+          <div>{{persona.getApellidos()}}</div>
+          <div>{{persona.getEdad()}}</div>
+          <div>{{persona.getDNI()}}</div>
+          <div>{{persona.getCumpleanos().toDateString()}}</div>
+          <div>{{persona.getColorFavorito()}}</div>
+          <div>{{persona.getSexo()}}</div>
+        </div>
+        <button mat-raised-button color="primary" class="boton" (click)="modificar(i)">Modificar</button> <button
+          mat-raised-button color="warn" class="boton" (click)="eliminar(i)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
 
-</form>
+</div>
